@@ -1,0 +1,49 @@
+.TH DNS-EXPORT 1
+.SH NAME
+dns-export \- export and logs dns answer resource records
+.SH SYNOPSIS
+.B dns-export
+<\fB\-r\fR \fIPCAPFILE\fR | \fB\-i\fR \fIINTERFACE\fR [\fB\-t\fR \fITIMEOUT\fR]>
+[\fB\-s\fR \fISYSLOGSERVER\fR]
+.SH DESCRIPTION
+.B dns-export
+Dns-export exports resource records from DNS answer fields in live connection and logs them to dedicated server.
+On \fBSIGUSR1\fR current statistics are dumped to standard output.
+If syslog server is not specified, the logs are printed to standard output instead.
+.SH OPTIONS
+.TP
+.BR \-r "\t" \fIPCAPFILE\fR
+Export resource records from pcap file rather then live connection
+.TP
+.BR \-i "\t" \fIINTERFACE\fR
+Interface to sniff the live traffic on. To sniff a live traffic you need root privileges
+.TP
+.BR \-s "\t" \fISYSLOGSERVER\fR
+Hostname of a dedicated server to send logs to
+.TP
+.BR \-t "\t" \fITIMEOUT\fR
+Period to send logs to syslog server in seconds. The default timeout is 60 seconds
+.SH EXAMPLES
+To log data previously captured in a file
+.PP
+.nf
+.RS
+dns-export -r capture.pcap -s 192.168.0.1
+.RE
+.fi
+.PP
+To log data from live wireless connection
+.PP
+.nf
+.RS
+dns-export -i wlp3s0 -s 192.168.0.1 -t 120
+.SH BUGS
+The dns-export does not cover network layer fragmentation and transport layer segmentation
+.SH AUTHOR
+Jakub Pruzinec (xpruzi02@fit.vutbr.cz)
+
+Faculty of Information Technology VUT
+.SH COPYRIGHT
+All rights reserved.
+.SH SEE ALSO
+dig (1)
